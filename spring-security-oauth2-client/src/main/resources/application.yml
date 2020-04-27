@@ -9,3 +9,9 @@ spring:
             scope:
             - email
             - public_profile
+  mvc:
+    view:
+      prefix: WEB-INF/jsp/
+      suffix: .jsp
+  application:
+    name: Oauth2-Facebook-Login
