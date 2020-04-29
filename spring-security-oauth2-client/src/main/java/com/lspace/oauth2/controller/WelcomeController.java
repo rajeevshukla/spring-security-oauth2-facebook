@@ -1,8 +1,9 @@
 package com.lspace.oauth2.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -10,13 +11,13 @@ public class WelcomeController {
 
 	
 	
-	@GetMapping("/home") 
-	public String home() { 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(authentication);
-		System.out.println("Welcome");
-		System.out.println();
-		return "index";
+	@GetMapping("/welcome") 
+	public String home(Model model,  @AuthenticationPrincipal OAuth2AuthenticationToken token) {
+		
+		
+		model.addAttribute("name", token.getPrincipal().getAttribute("name"));
+		
+		return "home";
 	}
 	
 }
