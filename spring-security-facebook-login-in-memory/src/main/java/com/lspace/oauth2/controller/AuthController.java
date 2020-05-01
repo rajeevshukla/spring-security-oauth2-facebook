@@ -31,7 +31,7 @@ public class AuthController {
 		System.out.println(authenticationToken.getAuthorizedClientRegistrationId()); // client name like facebook, google etc.
 		System.out.println(authenticationToken.getName()); // facebook/google userId
 		
-		//		1.Fetching User Info
+		//	1.Fetching User Info
 		OAuth2User user = authenticationToken.getPrincipal(); // When you work with Spring OAuth it gives you OAuth2User instead of UserDetails
 		System.out.println("userId: "+user.getName()); // returns the userId of facebook
 		// getAttributes map Contains User details like name, email etc// print the whole map for more details
@@ -41,7 +41,7 @@ public class AuthController {
         OAuth2AuthorizedClient client = authclientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getName());
         System.out.println("Token Value"+ client.getAccessToken().getTokenValue()); 
 		
-		//3. Now you have full control on users data.You can eitehr see if user is not present in Database then store it and 
+		//3. Now you have full control on users data.You can either see if user is not present in Database then store it and 
         // send welcome email for the first time 
         model.addAttribute("name", user.getAttribute("name"));
 
@@ -57,11 +57,11 @@ public class AuthController {
 		return "home";
 
 	}
+	
 	@GetMapping(value = {"/"}) 
 	public String home(Model model, @AuthenticationPrincipal Authentication authentication) {
         
 		// authentication's principle could be either through OAuth or via form-based so you have to cast the principle object into User object carefully. 
-		
 		if(authentication.getPrincipal() instanceof UserDetails) {
 			System.out.println("It was a form based login");
 			UserDetails user = (UserDetails) authentication.getPrincipal();
