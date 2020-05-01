@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lspace.oauth2</groupId>
-	<artifactId>spring-security-oauth2-client</artifactId>
+	<artifactId>spring-security-facebook-login-in-memory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-security-oauth2-client</name>
 	<description>Spring Oauth2 Login</description>
