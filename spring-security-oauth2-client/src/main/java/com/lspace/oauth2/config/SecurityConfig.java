@@ -14,19 +14,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and().formLogin()
+		http.authorizeRequests().antMatchers("/login").permitAll()
+		        .anyRequest().authenticated() 
+		        .and().formLogin() // enable form based login
 				.loginPage("/login").defaultSuccessUrl("/formLoginSuccess")
-				.and().logout().permitAll()
-				.and().oauth2Login()
+				.and().logout() // enable logout 
+				.and().oauth2Login() // enable OAuth2 
 				.loginPage("/login").defaultSuccessUrl("/oauth2LoginSuccess")
-				.and().csrf().disable();
+				.and().csrf().disable(); // disable CSRF
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	   // Adding in memory User for form based login
 		auth.inMemoryAuthentication()
-		.passwordEncoder(NoOpPasswordEncoder.getInstance())
+		.passwordEncoder(NoOpPasswordEncoder.getInstance()) 
 		.withUser("admin")
 		.password("admin")
 		.roles("USER");	
