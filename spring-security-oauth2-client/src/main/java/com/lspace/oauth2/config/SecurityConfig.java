@@ -13,18 +13,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-       
-		//If you don't disable csrf then make sure that you call logout URL with post request.
-		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").defaultSuccessUrl("/formLoginSuccess").permitAll()
+
+		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated().and().formLogin()
+				.loginPage("/login").defaultSuccessUrl("/formLoginSuccess")
 				.and().logout().permitAll()
 				.and().oauth2Login()
-				.loginPage("/login").defaultSuccessUrl("/oauth2LoginSuccess");
+				.loginPage("/login").defaultSuccessUrl("/oauth2LoginSuccess")
+				.and().csrf().disable();
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	// Adding in memory User for form based login
+	   // Adding in memory User for form based login
 		auth.inMemoryAuthentication()
 		.passwordEncoder(NoOpPasswordEncoder.getInstance())
 		.withUser("admin")

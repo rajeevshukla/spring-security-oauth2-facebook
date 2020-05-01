@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -67,12 +66,12 @@
 </head>
 <body>
 <div class="login-form">
+
     <form action="/login" method="post">
         <h2 class="text-center">Sign in</h2>		
         <div class="text-center social-btn">
             <a href="/oauth2/authorization/facebook" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
-            <a href="#" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
-			<a href="#" class="btn btn-danger btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+            <!-- <a href="/oauth2/authorization/google" class="btn btn-info btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a> -->
         </div>
 		<div class="or-seperator"><i>or</i></div>
         <div class="form-group">
@@ -94,8 +93,8 @@
             <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
             <a href="#" class="pull-right text-success">Forgot Password?</a>
         </div>  
-        
     </form>
+    
     <div class="hint-text small">Don't have an account? <a href="#" class="text-success">Register Now!</a></div>
 </div>
 </body>

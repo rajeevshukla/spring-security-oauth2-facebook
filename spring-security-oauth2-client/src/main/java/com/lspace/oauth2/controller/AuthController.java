@@ -1,6 +1,7 @@
 package com.lspace.oauth2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -25,39 +26,53 @@ public class AuthController {
 	}
 
 	@RequestMapping("/oauth2LoginSuccess")
-	public String getOauth2LoginInfo(Model model, OAuth2AuthenticationToken authenticationToken) {
-
+	public String getOauth2LoginInfo(Model model,@AuthenticationPrincipal OAuth2AuthenticationToken authenticationToken) {
 		// fetching the client details and user details and then adding them into 
-
 		System.out.println(authenticationToken.getAuthorizedClientRegistrationId()); // client name like facebook, google etc.
-		System.out.println(authenticationToken.getName()); // facebook userId
+		System.out.println(authenticationToken.getName()); // facebook/google userId
+		
+		//		1.Fetching User Info
+		OAuth2User user = authenticationToken.getPrincipal(); // When you work with Spring OAuth it gives you OAuth2User instead of UserDetails
+		System.out.println("userId: "+user.getName()); // returns the userId of facebook
+		// getAttributes map Contains User details like name, email etc// print the whole map for more details
+		System.out.println("Email:"+ user.getAttributes().get("email"));
+        
+		//2. Just in case if you want to obtain User's auth token value, refresh token, expiry date etc you can use below snippet
+        OAuth2AuthorizedClient client = authclientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getName());
+        System.out.println("Token Value"+ client.getAccessToken().getTokenValue()); 
+		
+		//3. Now you have full control on users data.You can eitehr see if user is not present in Database then store it and 
+        // send welcome email for the first time 
+        model.addAttribute("name", user.getAttribute("name"));
 
-		OAuth2AuthorizedClient client = 	authclientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getName());
-
-		OAuth2User user = authenticationToken.getPrincipal();
-		System.out.println("user name"+user.getName());
-		System.out.println(user.getAttributes());
-
-		// headers.add(HttpHeaders.AUTHORIZATION, "Bearer"+client.getAccessToken().getTokenValue());
-
-		// Now here check if user is already present in your database and send welcome email if not. 
-
-		return "redirect:/welcome";
+        return "home";
 	}
 
 	@RequestMapping("/formLoginSuccess")
-	public String getFormLoginInfo(Model model, @AuthenticationPrincipal UserDetails user) {
-
-		model.addAttribute("name", user.getUsername());
+	public String getFormLoginInfo(Model model, @AuthenticationPrincipal Authentication authentication) {
+        // In form-based login you get UserDetails as principal
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		
+		model.addAttribute("name", userDetails.getUsername());
 		return "home";
 
 	}
-	@GetMapping("/welcome") 
-	public String home(Model model,  @AuthenticationPrincipal OAuth2AuthenticationToken token) {
-
-
-		model.addAttribute("name", token.getPrincipal().getAttribute("name"));
-
+	@GetMapping(value = {"/"}) 
+	public String home(Model model, @AuthenticationPrincipal Authentication authentication) {
+        
+		// authentication's principle could be either through OAuth or via form-based so you have to cast the principle object into User object carefully. 
+		
+		if(authentication.getPrincipal() instanceof UserDetails) {
+			System.out.println("It was a form based login");
+			UserDetails user = (UserDetails) authentication.getPrincipal();
+			model.addAttribute("name", user.getUsername());
+			
+		} else  {
+			System.out.println("It was OAuth based login");
+			OAuth2User user = (OAuth2User) authentication.getPrincipal();
+			model.addAttribute("name", user.getAttribute("name"));
+		}
+				
 		return "home";
 	}
 
