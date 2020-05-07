@@ -11,13 +11,14 @@ import com.developervisits.oauth2.dao.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+
 	@Autowired
-	UserRepository userRepo;
+	UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-			
-		return null;
+		UserDetails userDetails = userRepository.findByUsername(username);
+		return userDetails;
 	}
 
 }

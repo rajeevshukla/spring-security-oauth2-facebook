@@ -1,4 +1,4 @@
-package com.lspace.oauth2.controller;
+package com.developervisits.oauth2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -60,7 +60,7 @@ public class AuthController {
 	
 	@GetMapping(value = {"/"}) 
 	public String home(Model model, @AuthenticationPrincipal Authentication authentication) {
-        
+        System.out.println("Request appeared on server.");
 		// authentication's principle could be either through OAuth or via form-based so you have to cast the principle object into User object carefully. 
 		if(authentication.getPrincipal() instanceof UserDetails) {
 			System.out.println("It was a form based login");

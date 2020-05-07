@@ -1,4 +1,4 @@
-package com.lspace.oauth2.config;
+package com.developervisits.oauth2.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
