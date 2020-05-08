@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class FacebookProfile {
+	private String id;
 	private String name;
 	private String email;
-	private String frist_name;
+	private String first_name;
 	private String last_name;
 }
