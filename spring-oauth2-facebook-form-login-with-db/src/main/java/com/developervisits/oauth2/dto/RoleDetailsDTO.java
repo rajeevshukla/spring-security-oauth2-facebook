@@ -1,4 +1,4 @@
-package com.developervisits.oauth2.model;
+package com.developervisits.oauth2.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

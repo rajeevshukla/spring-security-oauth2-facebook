@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.developervisits.oauth2.model.UserDetailsDTO;
+import com.developervisits.oauth2.dto.UserDetailsDTO;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserDetailsDTO, String>{

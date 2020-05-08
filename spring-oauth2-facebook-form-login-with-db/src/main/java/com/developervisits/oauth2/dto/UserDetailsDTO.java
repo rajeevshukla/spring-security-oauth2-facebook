@@ -1,4 +1,4 @@
-package com.developervisits.oauth2.model;
+package com.developervisits.oauth2.dto;
 
 import java.util.Collection;
 import java.util.HashSet;
