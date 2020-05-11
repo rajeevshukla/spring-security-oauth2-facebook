@@ -25,7 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
      .and().logout()
      .and().oauth2Login().loginPage("/login").defaultSuccessUrl("/oauth2LoginSuccess",true)
      .and().csrf().disable();
-
 	}
+	
+	
+	
 	
 }

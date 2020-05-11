@@ -1,7 +1,11 @@
 package com.developervisits.oauth2.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +14,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.developervisits.oauth2.api.Facebook;
+import com.developervisits.oauth2.model.FacebookProfile;
 import com.developervisits.oauth2.model.RegisterUser;
 
 @Controller
 public class AuthController {
 
-
+	@Autowired 
+	Facebook  facebook;
+	
+	@Autowired
+	OAuth2AuthorizedClientService authclientService;
 
 	@GetMapping("/") 
 	public String home(Model model, @AuthenticationPrincipal OAuth2User oAuth2User) {
@@ -34,11 +44,22 @@ public class AuthController {
 	}
 
 	@GetMapping("/oauth2LoginSuccess") 
-	public ModelAndView oauth2SuccessLogin(@AuthenticationPrincipal OAuth2User user) { 
+	public ModelAndView oauth2SuccessLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authtoken) { 
 		ModelAndView modelAndView = new ModelAndView("home");
 		
-		modelAndView.addObject("name", user.getAttributes().get("name"));
-
+		/*
+		 * OAuth2AuthorizedClient client =
+		 * authclientService.loadAuthorizedClient(authtoken.
+		 * getAuthorizedClientRegistrationId(), authtoken.getName());
+		 * System.out.println("Access Token" + client.getAccessToken().getTokenValue());
+		 */
+		modelAndView.addObject("name", authtoken.getPrincipal().getAttributes().get("name"));
+        
+//		Facebook facebook = new Facebook(client.getAccessToken().getTokenValue());
+	    FacebookProfile facebookProfile =	facebook.getProfileDetails(); 
+		System.out.println("Facebook Profile: "+facebookProfile);
+		
+ 
 		return modelAndView;
 	}
 

@@ -1,6 +1,8 @@
 package com.developervisits.oauth2.api;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -15,6 +17,7 @@ public class ApiBinding {
 
 	public ApiBinding(String accessToken) {
 		this.restTemplate = new RestTemplate();
+		
 		if(accessToken !=null && !accessToken.isEmpty()) {
 			restTemplate.getInterceptors().add(getBearerInterceptor(accessToken));
 		} else {
@@ -27,8 +30,20 @@ public class ApiBinding {
 			@Override
 			public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 					throws IOException {
-				request.getHeaders().add(HttpHeaders.AUTHORIZATION, "Bearer "+accessToken);
-				return execution.execute(request, body);
+				request.getHeaders().add("Authorization", "Bearer " + accessToken);
+				System.out.println("Setting up headers :" +accessToken); 
+				System.out.println(request.getURI().toURL());
+				ClientHttpResponse response = execution.execute(request, body);
+				StringBuilder inputStringBuilder = new StringBuilder();
+		        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getBody(), "UTF-8"));
+		        String line = bufferedReader.readLine();
+		        while (line != null) {
+		            inputStringBuilder.append(line);
+		            inputStringBuilder.append('\n');
+		            line = bufferedReader.readLine();
+		        }
+		        System.out.println("Response:"+ inputStringBuilder);
+		        return response;
 			}
 		};
 	}
