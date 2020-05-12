@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.developervisits.oauth2.api.Facebook;
-import com.developervisits.oauth2.model.FacebookProfile;
+import com.developervisits.oauth2.api.ProfileDetails;
 import com.developervisits.oauth2.model.RegisterUser;
 
 @Controller
 public class AuthController {
 
-	@Autowired 
-	Facebook  facebook;
 	
 	@Autowired
 	OAuth2AuthorizedClientService authclientService;
@@ -46,20 +44,18 @@ public class AuthController {
 	@GetMapping("/oauth2LoginSuccess") 
 	public ModelAndView oauth2SuccessLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authtoken) { 
 		ModelAndView modelAndView = new ModelAndView("home");
-		
-		/*
-		 * OAuth2AuthorizedClient client =
-		 * authclientService.loadAuthorizedClient(authtoken.
-		 * getAuthorizedClientRegistrationId(), authtoken.getName());
-		 * System.out.println("Access Token" + client.getAccessToken().getTokenValue());
-		 */
+		  OAuth2AuthorizedClient client =
+		  authclientService.loadAuthorizedClient(authtoken.
+		  getAuthorizedClientRegistrationId(), authtoken.getName());
+		  System.out.println("Access Token" + client.getAccessToken().getTokenValue());
+		 
 		modelAndView.addObject("name", authtoken.getPrincipal().getAttributes().get("name"));
         
-//		Facebook facebook = new Facebook(client.getAccessToken().getTokenValue());
-	    FacebookProfile facebookProfile =	facebook.getProfileDetails(); 
+		Facebook facebook = new Facebook(client.getAccessToken().getTokenValue());
+	    ProfileDetails facebookProfile =	facebook.getProfileDetails(); 
 		System.out.println("Facebook Profile: "+facebookProfile);
 		
- 
+         System.out.println( facebook.getProfileDetails() );
 		return modelAndView;
 	}
 
