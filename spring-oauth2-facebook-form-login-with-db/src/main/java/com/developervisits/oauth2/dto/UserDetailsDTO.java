@@ -40,7 +40,9 @@ public class UserDetailsDTO implements UserDetails {
 	private String lastName;
 	@Column(name="EMAIL_ID")
 	private String emailId;
-	
+	@Column(name = "SOURCE")
+	private SOURCE source;
+
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
 	private boolean isAccountNonExpired;
 	@Column(name = "IS_ACCOUNT_NON_LOCKED", columnDefinition = "smallint default 1")
@@ -49,17 +51,17 @@ public class UserDetailsDTO implements UserDetails {
 	private boolean isCredentialsNonExpired;
 	@Column(name = "IS_ENABLED", columnDefinition = "smallint default 1")
 	private boolean isEnabled;
-	
+
 	@ManyToMany(targetEntity = RoleDetailsDTO.class,fetch = FetchType.EAGER)
 	@JoinTable(name = "USER_ROLE_MAPPING",joinColumns = @JoinColumn(name="USER_ID")
 	,inverseJoinColumns = @JoinColumn(name="ROLE_ID"))
 	private Collection<? extends GrantedAuthority> authorities = new HashSet<>();
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return isAccountNonExpired;
@@ -80,5 +82,17 @@ public class UserDetailsDTO implements UserDetails {
 		return isEnabled;
 	}
 
-	
+	private enum SOURCE {
+		FACEBOOK("facebook"),
+		SELF("self"),
+		GOOGLE("google");
+
+		private String source;
+		SOURCE(String medium){
+			this.source = medium;
+		}
+
+
+	}
+
 }

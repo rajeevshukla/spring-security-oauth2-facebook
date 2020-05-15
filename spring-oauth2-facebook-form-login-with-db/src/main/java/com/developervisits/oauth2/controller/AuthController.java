@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.developervisits.oauth2.api.Facebook;
-import com.developervisits.oauth2.api.ProfileDetails;
+import com.developervisits.oauth2.model.ProfileDetails;
 import com.developervisits.oauth2.model.RegisterUser;
 
 @Controller

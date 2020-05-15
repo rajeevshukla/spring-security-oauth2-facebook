@@ -1,4 +1,4 @@
-package com.developervisits.oauth2.api;
+package com.developervisits.oauth2.model;
 
 public class ProfileDetails{
 
