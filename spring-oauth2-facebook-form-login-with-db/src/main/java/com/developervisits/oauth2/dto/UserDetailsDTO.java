@@ -41,7 +41,7 @@ public class UserDetailsDTO implements UserDetails {
 	@Column(name="EMAIL_ID")
 	private String emailId;
 	@Column(name = "SOURCE")
-	private SOURCE source;
+	private MEDIUM source;
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
 	private boolean isAccountNonExpired;
@@ -82,16 +82,19 @@ public class UserDetailsDTO implements UserDetails {
 		return isEnabled;
 	}
 
-	private enum SOURCE {
+	private enum MEDIUM {
 		FACEBOOK("facebook"),
-		SELF("self"),
+		SELF("_native"),
 		GOOGLE("google");
 
 		private String source;
-		SOURCE(String medium){
+		MEDIUM(String medium){
 			this.source = medium;
 		}
 
+		public String getSource() {
+			return source;
+		}
 
 	}
 
