@@ -40,8 +40,13 @@ public class UserDetailsDTO implements UserDetails {
 	private String lastName;
 	@Column(name="EMAIL_ID")
 	private String emailId;
+<<<<<<< HEAD
 	@Column(name = "LOGIN_MEDIUM")
 	private MEDIUM medium;
+=======
+	@Column(name = "SOURCE")
+	private MEDIUM source;
+>>>>>>> branch 'master' of https://github.com/rajeevshukla/spring-security-oauth2.git
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
 	private boolean isAccountNonExpired;
@@ -82,15 +87,18 @@ public class UserDetailsDTO implements UserDetails {
 		return isEnabled;
 	}
 
+
 	public enum MEDIUM {
+
 		FACEBOOK("facebook"),
 		SELF("_native"),
 		GOOGLE("google");
+
 		private String medium;
 		MEDIUM(String medium){
 			this.medium = medium;
 		}
-		
+			
 		public String getMedium() {
 			return medium;
 		}
