@@ -40,13 +40,8 @@ public class UserDetailsDTO implements UserDetails {
 	private String lastName;
 	@Column(name="EMAIL_ID")
 	private String emailId;
-<<<<<<< HEAD
 	@Column(name = "LOGIN_MEDIUM")
 	private MEDIUM medium;
-=======
-	@Column(name = "SOURCE")
-	private MEDIUM source;
->>>>>>> branch 'master' of https://github.com/rajeevshukla/spring-security-oauth2.git
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
 	private boolean isAccountNonExpired;
