@@ -15,7 +15,6 @@ import lombok.Data;
 public class RoleDetailsDTO implements GrantedAuthority{
 
 	private static final long serialVersionUID = -5092076720008287704L;
-
 	@Id
 	@Column(name = "ROLE_ID")
 	private String roleId;
