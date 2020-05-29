@@ -1,12 +1,16 @@
 package com.developervisits.oauth2.service;
 
+import java.util.HashSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.developervisits.oauth2.common.AuthProvider;
 import com.developervisits.oauth2.dao.UserRepository;
+import com.developervisits.oauth2.dto.RoleDetailsDTO;
 import com.developervisits.oauth2.dto.UserDetailsDTO;
 import com.developervisits.oauth2.model.RegisterUser;
 
@@ -31,11 +35,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	public void registerUser(RegisterUser registerUser) {
 		
-		
-		
 		UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
 		userDetailsDTO.setUsername(registerUser.getUsername());
-		
+		RoleDetailsDTO roleDetails = new RoleDetailsDTO();
+		roleDetails.setRoleId("ROLE_USER");
+		HashSet<RoleDetailsDTO> roleSet = new HashSet<>();
+		userDetailsDTO.setAuthorities(roleSet);
+		//When user registers through application. Provider would be Local
+		userDetailsDTO.setProvider(AuthProvider.local);
 		
 		userRepository.save(userDetailsDTO);
 	}

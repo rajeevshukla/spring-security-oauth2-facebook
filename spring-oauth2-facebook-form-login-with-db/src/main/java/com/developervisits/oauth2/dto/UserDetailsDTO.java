@@ -20,6 +20,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.developervisits.oauth2.common.AuthProvider;
+
 import lombok.Data;
 
 @Data
@@ -46,7 +48,7 @@ public class UserDetailsDTO implements UserDetails,OAuth2User {
 	@Column(name = "EMAIL_ID")
 	private String emailId;
 	@Column(name = "PROVIDER")
-	private String provider;
+	private AuthProvider provider;
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
 	private boolean isAccountNonExpired;

@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<UserDetailsDTO, String>{
 	@Query("select u from UserDetailsDTO u where username=?1")
 	public UserDetailsDTO findByUsername(String username);
 	
+	@Query("select u from UserDetailsDTO u where emailId=?1")
+	public UserDetailsDTO findByEmail(String emailId);
+	
 }
