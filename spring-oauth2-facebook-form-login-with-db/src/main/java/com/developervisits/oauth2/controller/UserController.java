@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.developervisits.oauth2.common.AuthProvider;
 import com.developervisits.oauth2.model.RegisterUser;
 import com.developervisits.oauth2.service.UserDetailsServiceImpl;
 
@@ -20,7 +21,7 @@ public class UserController {
 	
 	@PostMapping("/registerUser") 
 	public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUser registerUser) {
-		userService.registerUser(registerUser);
+		userService.registerUser(registerUser,AuthProvider.local);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

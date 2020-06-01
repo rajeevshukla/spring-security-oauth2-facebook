@@ -15,66 +15,73 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.developervisits.oauth2.api.Facebook;
-import com.developervisits.oauth2.model.ProfileDetails;
+import com.developervisits.oauth2.common.AuthProvider;
+import com.developervisits.oauth2.model.FacebookProfile;
 import com.developervisits.oauth2.model.RegisterUser;
+import com.developervisits.oauth2.service.UserDetailsServiceImpl;
 
 @Controller
 public class AuthController {
 
-	
 	@Autowired
 	OAuth2AuthorizedClientService authclientService;
 
-	@GetMapping("/") 
+	@Autowired
+	UserDetailsServiceImpl userDetailsService;
+
+	@GetMapping("/")
 	public String home(Model model, @AuthenticationPrincipal OAuth2User oAuth2User) {
 
 		System.out.println(oAuth2User);
-		 model.addAttribute("name", oAuth2User.getAttributes().get(("name")));
+		model.addAttribute("name", oAuth2User.getAttributes().get(("name")));
 
 		return "home";
 	}
 
-	@GetMapping("/formLoginSuccess") 
+	@GetMapping("/formLoginSuccess")
 	public ModelAndView formSuccessLogin(@AuthenticationPrincipal UserDetails userDetails) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("name", userDetails.getUsername());
 		return modelAndView;
 	}
 
-	@GetMapping("/oauth2LoginSuccess") 
-	public ModelAndView oauth2SuccessLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authtoken) { 
+	@GetMapping("/oauth2LoginSuccess")
+	public ModelAndView oauth2SuccessLogin(@AuthenticationPrincipal OAuth2AuthenticationToken authtoken) {
+
 		ModelAndView modelAndView = new ModelAndView("home");
-		  OAuth2AuthorizedClient client =
-		  authclientService.loadAuthorizedClient(authtoken.
-		  getAuthorizedClientRegistrationId(), authtoken.getName());
-		  System.out.println("Access Token" + client.getAccessToken().getTokenValue());
-		 
+		OAuth2AuthorizedClient client = authclientService
+				.loadAuthorizedClient(authtoken.getAuthorizedClientRegistrationId(), authtoken.getName());
+		System.out.println("Access Token" + client.getAccessToken().getTokenValue());
 		modelAndView.addObject("name", authtoken.getPrincipal().getAttributes().get("name"));
-        
 		Facebook facebook = new Facebook(client.getAccessToken().getTokenValue());
-	    ProfileDetails facebookProfile =	facebook.getProfileDetails(); 
-		System.out.println("Facebook Profile: "+facebookProfile);
+		FacebookProfile facebookProfile = facebook.getProfileDetails();
+		System.out.println("Facebook Profile: " + facebookProfile);
+		System.out.println(facebook.getProfileDetails());
 		
-         System.out.println( facebook.getProfileDetails() );
+		
 		return modelAndView;
 	}
 
-	//Returning the login page. 
+	// Returning the login page.
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
+
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView("register");
-	    mav.addObject("registerUser", new RegisterUser());
-		return mav; 
+		mav.addObject("registerUser", new RegisterUser());
+		return mav;
 	}
-	
+
 	@PostMapping("/register")
 	public void registerSuccess(@ModelAttribute RegisterUser user) {
-		
+		register(user, AuthProvider.local);
+	}
+
+	private void register(RegisterUser user, AuthProvider provider) {
+		userDetailsService.registerUser(user,provider);
 	}
 
 }

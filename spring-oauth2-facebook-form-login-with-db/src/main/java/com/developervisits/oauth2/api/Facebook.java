@@ -1,6 +1,6 @@
 package com.developervisits.oauth2.api;
 
-import com.developervisits.oauth2.model.ProfileDetails;
+import com.developervisits.oauth2.model.FacebookProfile;
 
 public class Facebook  extends ApiBinding {
 
@@ -10,9 +10,9 @@ public class Facebook  extends ApiBinding {
 		super(authToken);
 	}
 
-	public ProfileDetails getProfileDetails() {
+	public FacebookProfile getProfileDetails() {
 		System.out.println("Fetching facebook profile details");
-		return restTemplate.getForObject(FACEBOOK_GRAPH_BASE_URL+"/me?fields=id,email,last_name,first_name", ProfileDetails.class);
+		return restTemplate.getForObject(FACEBOOK_GRAPH_BASE_URL+"/me?fields=id,email,last_name,first_name", FacebookProfile.class);
 	}
 	
 }

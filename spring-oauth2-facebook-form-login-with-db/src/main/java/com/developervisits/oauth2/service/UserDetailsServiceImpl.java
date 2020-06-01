@@ -32,17 +32,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 	
 	
-	
-	public void registerUser(RegisterUser registerUser) {
+	public void registerUser(RegisterUser registerUser, AuthProvider provider) {
 		
 		UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
 		userDetailsDTO.setUsername(registerUser.getUsername());
+		userDetailsDTO.setFirstName(registerUser.getFirstName());
+		userDetailsDTO.setLastName(registerUser.getLastName());
+		userDetailsDTO.setEmailId(registerUser.getEmailId());
 		RoleDetailsDTO roleDetails = new RoleDetailsDTO();
 		roleDetails.setRoleId("ROLE_USER");
 		HashSet<RoleDetailsDTO> roleSet = new HashSet<>();
 		userDetailsDTO.setAuthorities(roleSet);
 		//When user registers through application. Provider would be Local
-		userDetailsDTO.setProvider(AuthProvider.local);
+		userDetailsDTO.setProvider(provider);
 		
 		userRepository.save(userDetailsDTO);
 	}
