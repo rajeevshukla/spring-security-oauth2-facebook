@@ -2,6 +2,8 @@ package com.developervisits.oauth2.service;
 
 import java.util.HashSet;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,10 +25,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDetails userDetails = userRepository.findByUsername(username); 
-		
+		System.out.println("fetching user details");
+		UserDetailsDTO userDetails = userRepository.findByUsername(username); 
+		System.out.println(userDetails);
 		if(userDetails == null) {
-			throw new UsernameNotFoundException("Username:"+username +" not found!");
+			System.out.println("Throwing...");
+//			throw new RuntimeException("check it");
+			throw new RuntimeException("Username:"+username +" not found!");
+		} 
+		
+		if(userDetails != null && !AuthProvider.local.equals(userDetails.getProvider())) {
+			System.out.println("Throwing user provider issue");
+			throw new RuntimeException("Username:"+username +" has logged in from "+userDetails.getProvider()+". Please login with this provider");
 		}
 		return userDetails;
 	}

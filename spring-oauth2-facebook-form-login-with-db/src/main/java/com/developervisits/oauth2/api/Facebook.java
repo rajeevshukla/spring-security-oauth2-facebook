@@ -12,7 +12,7 @@ public class Facebook  extends ApiBinding {
 
 	public FacebookProfile getProfileDetails() {
 		System.out.println("Fetching facebook profile details");
-		return restTemplate.getForObject(FACEBOOK_GRAPH_BASE_URL+"/me?fields=id,email,last_name,first_name", FacebookProfile.class);
+		return restTemplate.getForObject(FACEBOOK_GRAPH_BASE_URL+"/me?fields=id,email,last_name,first_name,name", FacebookProfile.class);
 	}
 	
 }

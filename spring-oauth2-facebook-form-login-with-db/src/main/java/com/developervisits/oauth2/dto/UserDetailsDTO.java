@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +29,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "USER_DETAILS")
-public class UserDetailsDTO implements UserDetails,OAuth2User {
+public class UserDetailsDTO implements UserDetails, OAuth2User {
 	private static final long serialVersionUID = 5450870467888402052L;
 
 	@Id
@@ -47,7 +49,9 @@ public class UserDetailsDTO implements UserDetails,OAuth2User {
 	private String lastName;
 	@Column(name = "EMAIL_ID")
 	private String emailId;
+	
 	@Column(name = "PROVIDER")
+	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")

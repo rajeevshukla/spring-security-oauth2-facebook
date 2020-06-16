@@ -1,4 +1,5 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +76,12 @@
             <!-- <a href="/oauth2/authorization/google" class="btn btn-info btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a> -->
         </div>
 		<div class="or-seperator"><i>or</i></div>
+		${param.error}
+		${SPRING_SECURITY_LAST_EXCEPTION.message}
+		<c:if test="${ not empty param.error}">
+		<div style="color: red"><c:out
+                    value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
+		</c:if>
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
