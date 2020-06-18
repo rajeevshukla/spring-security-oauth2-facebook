@@ -36,7 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and().logout() // POST 
 		.and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(oauth2UserServiceImpl)
 		.and().defaultSuccessUrl("/oauth2LoginSuccess",true)
-		.and().csrf().disable();
+		.and().rememberMe().key("uniqueRememberKey")  // this will create cookie which will have usernmae, expiration time and md5 hash. 
+		// this mechanisim is potentially vulnerable because if cookie is captured then anyone can login until it is expired. 
+		.and()
+		.csrf().disable();
 	}
 	//@formatter:on
 

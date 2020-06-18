@@ -2,8 +2,6 @@ package com.developervisits.oauth2.service;
 
 import java.util.HashSet;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

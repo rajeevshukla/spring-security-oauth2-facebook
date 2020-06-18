@@ -22,7 +22,7 @@ public class AuthController {
 
 	@Autowired
 	OAuth2AuthorizedClientService authclientService;
-
+  
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 

@@ -76,9 +76,8 @@
             <!-- <a href="/oauth2/authorization/google" class="btn btn-info btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a> -->
         </div>
 		<div class="or-seperator"><i>or</i></div>
-		${param.error}
-		${SPRING_SECURITY_LAST_EXCEPTION.message}
-		<c:if test="${ not empty param.error}">
+	
+		<c:if test="${not empty param.error}">
 		<div style="color: red"><c:out
                     value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
 		</c:if>
@@ -98,7 +97,7 @@
             <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
         </div>
         <div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <label class="pull-left checkbox-inline"><input type="checkbox" name="remember-me"> Remember me</label>
             <a href="#" class="pull-right text-success">Forgot Password?</a>
         </div>  
     </form>
