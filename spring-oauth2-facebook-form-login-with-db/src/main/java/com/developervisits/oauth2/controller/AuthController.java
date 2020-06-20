@@ -17,7 +17,6 @@ import com.developervisits.oauth2.common.AuthProvider;
 import com.developervisits.oauth2.dto.UserDetailsDTO;
 import com.developervisits.oauth2.model.RegisterUser;
 import com.developervisits.oauth2.service.UserDetailsServiceImpl;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 public class AuthController {
