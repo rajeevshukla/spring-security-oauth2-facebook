@@ -22,13 +22,41 @@
 		<div class="card bg-light">
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Create Account</h4>
-				<form:form commandName="" action="" method="post">
+				<form:form modelAttribute="register"  action="/register" method="post">
+					<div class="form-group input-group">
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<form:input name="firstName" class="form-control" placeholder="First Name"
+						<form:input path="username" class="form-control" placeholder="First Name"
+							type="text"/>
+					</div>
+						
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<form:input class="form-control" path="password" placeholder="Create password"
+							type="password"/>
+					</div>
+					<!-- form-group// -->
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-lock"></i>
+							</span>
+						</div>
+						<form:input class="form-control" path="repassword" placeholder="Repeat password"
+							type="password"/>
+					</div>
+					
+					
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-user"></i>
+							</span>
+						</div>
+						<form:input path="firstName" class="form-control" placeholder="First Name"
 							type="text"/>
 					</div>
 					<div class="form-group input-group">
@@ -36,7 +64,7 @@
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<form:input name="lastName" class="form-control" placeholder="Last Name"
+						<form:input path="lastName" class="form-control" placeholder="Last Name"
 							type="text"/>
 					</div>
 					
@@ -46,26 +74,8 @@
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<form:input name="email" class="form-control" placeholder="Email address"
+						<form:input path="email" class="form-control" placeholder="Email address"
 							type="email"/>
-					</div>
-					
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<form:form class="form-control" name="password" placeholder="Create password"
-							type="password"/>
-					</div>
-					<!-- form-group// -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<form:input class="form-control" name="repassword" placeholder="Repeat password"
-							type="password"/>
 					</div>
 					<!-- form-group// -->
 					<div class="form-group">

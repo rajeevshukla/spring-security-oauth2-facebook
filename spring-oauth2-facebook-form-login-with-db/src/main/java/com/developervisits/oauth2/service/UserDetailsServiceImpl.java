@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.developervisits.oauth2.common.AuthProvider;
@@ -20,6 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	PasswordEncoder encode;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,9 +48,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
 		userDetailsDTO.setUsername(registerUser.getUsername());
+		userDetailsDTO.setPassword(encode.encode(registerUser.getPassword()));
 		userDetailsDTO.setFirstName(registerUser.getFirstName());
 		userDetailsDTO.setLastName(registerUser.getLastName());
-		userDetailsDTO.setEmailId(registerUser.getEmailId());
+		userDetailsDTO.setEmailId(registerUser.getEmail());
 		RoleDetailsDTO roleDetails = new RoleDetailsDTO();
 		roleDetails.setRoleId("ROLE_USER");
 		HashSet<RoleDetailsDTO> roleSet = new HashSet<>();

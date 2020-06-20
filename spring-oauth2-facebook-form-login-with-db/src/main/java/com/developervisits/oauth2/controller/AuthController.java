@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.developervisits.oauth2.common.AuthProvider;
 import com.developervisits.oauth2.dto.UserDetailsDTO;
 import com.developervisits.oauth2.model.RegisterUser;
 import com.developervisits.oauth2.service.UserDetailsServiceImpl;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 public class AuthController {
@@ -61,13 +63,21 @@ public class AuthController {
 	@GetMapping("/register")
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView("register");
-		mav.addObject("registerUser", new RegisterUser());
+		mav.addObject("register", new RegisterUser());
 		return mav;
 	}
 
 	@PostMapping("/register")
-	public void registerSuccess(@ModelAttribute RegisterUser user) {
-		register(user, AuthProvider.local);
+	public ModelAndView registerSuccess(@ModelAttribute RegisterUser user, BindingResult bindingResult) {
+		ModelAndView mav=new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			mav.addObject("register", user);
+		} else {
+			register(user, AuthProvider.local);
+			mav.setViewName("registerSuccess");
+		}
+		
+		 return mav;
 	}
 
 	private void register(RegisterUser user, AuthProvider provider) {

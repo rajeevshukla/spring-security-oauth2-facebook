@@ -42,7 +42,7 @@ public class OAuth2ServiceImpl extends DefaultOAuth2UserService {
 			userRepo.save(userDetailsDTO);
 		}  else {
 			RegisterUser registerUser = new RegisterUser();
-			registerUser.setEmailId(userInfo.getEmail());
+			registerUser.setEmail(userInfo.getEmail());
 			registerUser.setUsername(userInfo.getEmail());
 			registerUser.setFirstName(userInfo.getFirstName());
 			registerUser.setLastName(userInfo.getLastName());
