@@ -22,23 +22,32 @@
 		<div class="card bg-light">
 			<article class="card-body mx-auto">
 				<h4 class="card-title mt-3 text-center">Create Account</h4>
-				<form>
+				<form:form commandName="" action="" method="post">
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<input name="" class="form-control" placeholder="Full name"
-							type="text">
+						<form:input name="firstName" class="form-control" placeholder="First Name"
+							type="text"/>
 					</div>
+					<div class="form-group input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"> <i class="fa fa-user"></i>
+							</span>
+						</div>
+						<form:input name="lastName" class="form-control" placeholder="Last Name"
+							type="text"/>
+					</div>
+					
 					<!-- form-group// -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-envelope"></i>
 							</span>
 						</div>
-						<input name="" class="form-control" placeholder="Email address"
-							type="email">
+						<form:input name="email" class="form-control" placeholder="Email address"
+							type="email"/>
 					</div>
 					
 					<div class="form-group input-group">
@@ -46,8 +55,8 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input class="form-control" placeholder="Create password"
-							type="password">
+						<form:form class="form-control" name="password" placeholder="Create password"
+							type="password"/>
 					</div>
 					<!-- form-group// -->
 					<div class="form-group input-group">
@@ -55,8 +64,8 @@
 							<span class="input-group-text"> <i class="fa fa-lock"></i>
 							</span>
 						</div>
-						<input class="form-control" placeholder="Repeat password"
-							type="password">
+						<form:input class="form-control" name="repassword" placeholder="Repeat password"
+							type="password"/>
 					</div>
 					<!-- form-group// -->
 					<div class="form-group">
@@ -67,11 +76,9 @@
 					<p class="text-center">
 						Have an account? <a href="/login">Log In</a>
 					</p>
-				</form>
+				</form:form>
 			</article>
 		</div>
-		<!-- card.// -->
-
 	</div>
 </body>
 </html>
