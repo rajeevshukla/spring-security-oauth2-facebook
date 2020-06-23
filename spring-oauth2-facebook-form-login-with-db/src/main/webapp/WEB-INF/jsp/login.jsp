@@ -84,20 +84,20 @@
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                <input type="text" class="form-control" name="email" placeholder="Email Id" required="required">
             </div>
         </div>
 		<div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
         </div>        
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
         </div>
         <div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox" name="remember-me"> Remember me</label>
+            <label class="pull-left checkbox-inline"><input type="checkbox" name="rm"> Remember me</label>
             <a href="#" class="pull-right text-success">Forgot Password?</a>
         </div>  
     </form>

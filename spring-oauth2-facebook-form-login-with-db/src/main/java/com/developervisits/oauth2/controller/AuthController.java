@@ -2,7 +2,6 @@ package com.developervisits.oauth2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -23,23 +22,21 @@ public class AuthController {
 
 	@Autowired
 	OAuth2AuthorizedClientService authclientService;
-  
+
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
 	@GetMapping("/")
 	public String home(Model model, @AuthenticationPrincipal UserDetailsDTO userDetails) {
 
-		
 		model.addAttribute("name", userDetails.getFirstName());
-
 		return "home";
 	}
 
 	@GetMapping("/formLoginSuccess")
-	public ModelAndView formSuccessLogin(@AuthenticationPrincipal UserDetails userDetails) {
+	public ModelAndView formSuccessLogin(@AuthenticationPrincipal UserDetailsDTO userDetails) {
 		ModelAndView modelAndView = new ModelAndView("home");
-		modelAndView.addObject("name", userDetails.getUsername());
+		modelAndView.addObject("name", userDetails.getFirstName());
 		return modelAndView;
 	}
 
@@ -75,8 +72,7 @@ public class AuthController {
 			register(user, AuthProvider.local);
 			mav.setViewName("registerSuccess");
 		}
-		
-		 return mav;
+		return mav;
 	}
 
 	private void register(RegisterUser user, AuthProvider provider) {

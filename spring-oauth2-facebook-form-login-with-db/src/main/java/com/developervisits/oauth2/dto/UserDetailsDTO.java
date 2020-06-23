@@ -55,19 +55,18 @@ public class UserDetailsDTO implements UserDetails, OAuth2User {
 	private AuthProvider provider;
 
 	@Column(name = "IS_ACCOUNT_NON_EXPIRED", columnDefinition = "smallint default 1")
-	private boolean isAccountNonExpired;
+	private boolean isAccountNonExpired=true;
 	@Column(name = "IS_ACCOUNT_NON_LOCKED", columnDefinition = "smallint default 1")
-	private boolean isAccountNonLocked;
+	private boolean isAccountNonLocked=true;
 	@Column(name = "IS_CREDENTIAL_NON_EXPIRED", columnDefinition = "smallint default 1")
-	private boolean isCredentialsNonExpired;
+	private boolean isCredentialsNonExpired=true;
 	@Column(name = "IS_ENABLED", columnDefinition = "smallint default 1")
-	private boolean isEnabled;
+	private boolean isEnabled=true;
 	
 
 	@Transient
 	private Map<String, Object> attributes;
 	
-
 	@ManyToMany(targetEntity = RoleDetailsDTO.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "USER_ROLE_MAPPING", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	private Collection<? extends GrantedAuthority> authorities = new HashSet<>();

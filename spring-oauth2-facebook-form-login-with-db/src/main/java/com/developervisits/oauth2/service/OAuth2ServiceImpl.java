@@ -43,7 +43,6 @@ public class OAuth2ServiceImpl extends DefaultOAuth2UserService {
 		}  else {
 			RegisterUser registerUser = new RegisterUser();
 			registerUser.setEmail(userInfo.getEmail());
-			registerUser.setUsername(userInfo.getEmail());
 			registerUser.setFirstName(userInfo.getFirstName());
 			registerUser.setLastName(userInfo.getLastName());
 			userService.registerUser(registerUser, userInfo.getProvider());

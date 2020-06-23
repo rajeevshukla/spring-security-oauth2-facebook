@@ -29,7 +29,7 @@
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
 						</div>
-						<form:input path="username" class="form-control" placeholder="First Name"
+						<form:input path="email" class="form-control" placeholder="Email Id"
 							type="text"/>
 					</div>
 						
@@ -41,17 +41,6 @@
 						<form:input class="form-control" path="password" placeholder="Create password"
 							type="password"/>
 					</div>
-					<!-- form-group// -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-lock"></i>
-							</span>
-						</div>
-						<form:input class="form-control" path="repassword" placeholder="Repeat password"
-							type="password"/>
-					</div>
-					
-					
 						<div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-user"></i>
 							</span>
@@ -66,16 +55,6 @@
 						</div>
 						<form:input path="lastName" class="form-control" placeholder="Last Name"
 							type="text"/>
-					</div>
-					
-					<!-- form-group// -->
-					<div class="form-group input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"> <i class="fa fa-envelope"></i>
-							</span>
-						</div>
-						<form:input path="email" class="form-control" placeholder="Email address"
-							type="email"/>
 					</div>
 					<!-- form-group// -->
 					<div class="form-group">

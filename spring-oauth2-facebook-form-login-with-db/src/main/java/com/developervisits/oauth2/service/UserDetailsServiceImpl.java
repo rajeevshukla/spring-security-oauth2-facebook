@@ -47,11 +47,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public void registerUser(RegisterUser registerUser, AuthProvider provider) {
 		
 		UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
-		userDetailsDTO.setUsername(registerUser.getUsername());
+		userDetailsDTO.setUsername(registerUser.getEmail());
 		userDetailsDTO.setPassword(encode.encode(registerUser.getPassword()));
 		userDetailsDTO.setFirstName(registerUser.getFirstName());
 		userDetailsDTO.setLastName(registerUser.getLastName());
-		userDetailsDTO.setEmailId(registerUser.getEmail());
 		RoleDetailsDTO roleDetails = new RoleDetailsDTO();
 		roleDetails.setRoleId("ROLE_USER");
 		HashSet<RoleDetailsDTO> roleSet = new HashSet<>();

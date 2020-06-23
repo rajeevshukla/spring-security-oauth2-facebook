@@ -9,10 +9,9 @@ import lombok.ToString;
 @Setter
 public class RegisterUser {
 
-	private String username;
+	private String email;
 	private String password;
 	private String repassword;
-	private String email;
 	private String firstName;
 	private String lastName;
 	
